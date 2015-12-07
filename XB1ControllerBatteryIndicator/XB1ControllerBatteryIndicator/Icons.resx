@@ -133,9 +133,6 @@
   <data name="battery_medium" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\battery_medium.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="battery_unkown" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\battery_unkown.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="battery_wired" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\battery_wired.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

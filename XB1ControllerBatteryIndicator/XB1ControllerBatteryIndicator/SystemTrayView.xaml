@@ -27,18 +27,14 @@
         reuse the same context menu (which is a resource) again (which will have its DataContext set to the old TaskbarIcon)
         -->
         <ContextMenu x:Shared="false" x:Key="MainSysTrayMenu">
-            <MenuItem Header="Show Window" cal:Message.Attach="ShowWindow" />
-            <Separator />
             <MenuItem Header="Exit" cal:Message.Attach="ExitApplication" />
         </ContextMenu>
 
         <!-- the application main system tray icon -->
         <tb:TaskbarIcon x:Key="SystemTrayIcon"
                         IconSource="{Binding Path=ActiveIcon, Mode=OneWay}"
-                        ToolTipText="Double-click for window, right-click for menu"
-                        cal:Message.Attach="[Event TrayMouseDoubleClick] = [Action ShowWindow]"
+                        ToolTipText="{Binding Path=TooltipText, Mode=OneWay}"
                         ContextMenu="{StaticResource MainSysTrayMenu}" />
-
     </Window.Resources>
 
     <Grid>

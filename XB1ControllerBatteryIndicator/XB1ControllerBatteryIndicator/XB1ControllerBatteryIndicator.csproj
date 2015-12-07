@@ -130,6 +130,7 @@
     <EmbeddedResource Include="Icons.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Icons.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -148,23 +149,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\battery_disconnected.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\battery_empty.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\battery_full.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\battery_low.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\battery_medium.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\battery_unkown.ico" />
-  </ItemGroup>
-  <ItemGroup>
+    <Resource Include="Resources\battery_unknown.ico" />
     <Resource Include="Resources\battery_wired.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

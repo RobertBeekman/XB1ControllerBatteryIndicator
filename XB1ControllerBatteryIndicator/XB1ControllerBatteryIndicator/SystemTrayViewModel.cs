@@ -1,12 +1,7 @@
-﻿using System;
-using System.Drawing;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Interop;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using Caliburn.Micro;
 using SharpDX.XInput;
 
@@ -16,6 +11,7 @@ namespace XB1ControllerBatteryIndicator
     {
         private string _activeIcon;
         private Controller _controller;
+        private string _tooltipText;
 
         public SystemTrayViewModel()
         {
@@ -29,8 +25,17 @@ namespace XB1ControllerBatteryIndicator
             get { return _activeIcon; }
             set
             {
-                if (Equals(value, _activeIcon)) return;
                 _activeIcon = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public string TooltipText
+        {
+            get { return _tooltipText; }
+            set
+            {
+                _tooltipText = value;
                 NotifyOfPropertyChange();
             }
         }
@@ -51,16 +56,24 @@ namespace XB1ControllerBatteryIndicator
             if (_controller != null)
             {
                 var batteryInfo = _controller.GetBatteryInformation(BatteryDeviceType.Gamepad);
-                if (batteryInfo.BatteryType == BatteryType.Disconnected)
-                    ActiveIcon = "Resources/battery_disconnected.ico";
-                else if (batteryInfo.BatteryType == BatteryType.Wired)
-                    ActiveIcon = "Resources/battery_wired.ico";
-                else if (batteryInfo.BatteryType == BatteryType.Unknown)
-                    ActiveIcon = "Resources/battery_unkown.ico";
+                if (batteryInfo.BatteryType == BatteryType.Disconnected ||
+                    batteryInfo.BatteryType == BatteryType.Wired ||
+                    batteryInfo.BatteryType == BatteryType.Unknown)
+                {
+                    TooltipText = $"Controller {_controller.UserIndex} - {batteryInfo.BatteryType}";
+                    ActiveIcon = $"Resources/battery_{batteryInfo.BatteryType.ToString().ToLower()}.ico";
+                }
                 else
+                {
+                    TooltipText = $"Controller {_controller.UserIndex} - Battery level: {batteryInfo.BatteryLevel}";
                     ActiveIcon = $"Resources/battery_{batteryInfo.BatteryLevel.ToString().ToLower()}.ico";
+                }
             }
-            
+            else
+            {
+                TooltipText = $"No controller detected";
+                ActiveIcon = $"Resources/battery_disconnected.ico";
+            }
             Thread.Sleep(1000);
             RefreshControllerState();
         }
@@ -68,12 +81,6 @@ namespace XB1ControllerBatteryIndicator
         public void ExitApplication()
         {
             Application.Current.Shutdown();
-        }
-
-        private ImageSource ToImageSource(Bitmap source)
-        {
-            return Imaging.CreateBitmapSourceFromHBitmap(source.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty,
-                BitmapSizeOptions.FromEmptyOptions());
         }
     }
 }
